@@ -1,16 +1,514 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tarjeta Link | Fidelización</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Tarjeta Link | Fidelización de Clientes</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#050816;
+color:white;
+}
+
+header{
+
+padding:30px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+
+}
+
+.logo{
+
+font-size:30px;
+font-weight:bold;
+
+background:linear-gradient(
+90deg,
+#3B82F6,
+#7C3AED
+);
+
+-webkit-background-clip:text;
+color:transparent;
+
+}
+
+nav a{
+
+margin-left:25px;
+text-decoration:none;
+color:#ddd;
+
+}
+
+.hero{
+
+min-height:90vh;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+text-align:center;
+
+padding:40px;
+
+}
+
+.hero h1{
+
+font-size:62px;
+
+max-width:900px;
+
+}
+
+.hero span{
+
+background:linear-gradient(
+90deg,
+#3B82F6,
+#8B5CF6
+);
+
+-webkit-background-clip:text;
+
+color:transparent;
+
+}
+
+.hero p{
+
+margin-top:20px;
+
+font-size:22px;
+
+max-width:700px;
+
+color:#ccc;
+
+}
+
+.btn{
+
+margin-top:35px;
+
+padding:18px 36px;
+
+border:none;
+
+border-radius:14px;
+
+background:
+
+linear-gradient(
+90deg,
+#3B82F6,
+#7C3AED
+);
+
+color:white;
+
+font-size:18px;
+
+cursor:pointer;
+
+}
+
+.section{
+
+padding:120px 8%;
+
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:
+
+repeat(
+auto-fit,
+minmax(280px,1fr)
+);
+
+gap:30px;
+
+}
+
+.card{
+
+background:
+
+rgba(
+255,
+255,
+255,
+0.05
+);
+
+padding:40px;
+
+border-radius:24px;
+
+}
+
+.card h3{
+
+margin-bottom:15px;
+
+}
+
+.plan{
+
+border:
+
+1px solid rgba(
+255,
+255,
+255,
+0.1
+);
+
+}
+
+.price{
+
+font-size:42px;
+
+margin:20px 0;
+
+}
+
+footer{
+
+padding:50px;
+
+text-align:center;
+
+color:#999;
+
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>Tarjeta Link Fidelización</h1>
+<header>
 
-<p>Próximamente</p>
+<div class="logo">
+
+TARJETA LINK
+
+</div>
+
+<nav>
+
+<a href="/">Inicio</a>
+
+<a href="#planes">Planes</a>
+
+<a href="#funciona">Cómo funciona</a>
+
+<a href="#contacto">Contacto</a>
+
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>
+
+Convierte clientes en
+<span>
+clientes frecuentes
+</span>
+
+</h1>
+
+<p>
+
+Sistema de fidelización digital
+con QR, Wallet, visitas,
+puntos y panel administrador.
+
+</p>
+
+<button class="btn">
+
+Solicitar Configuración
+
+</button>
+
+</section>
+
+<section class="section">
+
+<h2>
+
+Todo incluido
+
+</h2>
+
+<br><br>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>
+
+🎁 Fidelización
+
+</h3>
+
+<p>
+
+Visitas y recompensas.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+📲 Wallet
+
+</h3>
+
+<p>
+
+Compatible con Google Wallet.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+📈 Estadísticas
+
+</h3>
+
+<p>
+
+Clientes y recompensas.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+🔳 QR
+
+</h3>
+
+<p>
+
+Registro automático.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section
+class="section"
+id="planes"
+>
+
+<h2>
+
+Planes
+
+</h2>
+
+<br><br>
+
+<div class="grid">
+
+<div
+class="card plan"
+>
+
+<h3>
+
+🥉 Recompensa
+
+</h3>
+
+<div class="price">
+
+$29.900
+
+</div>
+
+<p>
+
+300 clientes
+
+</p>
+
+</div>
+
+<div
+class="card plan"
+>
+
+<h3>
+
+🥈 Comunidad
+
+</h3>
+
+<div class="price">
+
+$49.900
+
+</div>
+
+<p>
+
+1000 clientes
+
+</p>
+
+</div>
+
+<div
+class="card plan"
+>
+
+<h3>
+
+🥇 Embajadores
+
+</h3>
+
+<div class="price">
+
+$79.900
+
+</div>
+
+<p>
+
+Ilimitado
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section
+class="section"
+id="funciona"
+>
+
+<h2>
+
+Cómo funciona
+
+</h2>
+
+<br><br>
+
+<div class="grid">
+
+<div class="card">
+
+1.
+Creamos tu tarjeta
+
+</div>
+
+<div class="card">
+
+2.
+Compartes QR
+
+</div>
+
+<div class="card">
+
+3.
+Premias clientes
+
+</div>
+
+</div>
+
+</section>
+
+<section
+class="section"
+id="contacto"
+>
+
+<h2>
+
+Configuración
+
+</h2>
+
+<br>
+
+<h1>
+
+$99.000 Pago Único
+
+</h1>
+
+<button
+class="btn"
+>
+
+Hablar por WhatsApp
+
+</button>
+
+</section>
+
+<footer>
+
+© Tarjeta Link
+
+</footer>
 
 </body>
 </html>
