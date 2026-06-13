@@ -13,9 +13,7 @@
 
 <style>
 
-html{
-scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth;}
 
 *{
 margin:0;
@@ -25,14 +23,11 @@ font-family:'Inter',sans-serif;
 }
 
 body{
-background:
-radial-gradient(circle at top,#13214f,#050816);
+background:radial-gradient(circle at top,#13214f,#050816);
 color:white;
 }
 
-a{
-text-decoration:none;
-}
+a{text-decoration:none;}
 
 header{
 display:flex;
@@ -52,14 +47,8 @@ background:linear-gradient(90deg,#5EA0FF,#B76BFF);
 color:transparent;
 }
 
-nav{
-display:flex;
-gap:28px;
-}
-
-nav a{
-color:#ddd;
-}
+nav{display:flex;gap:28px;}
+nav a{color:#ddd;}
 
 .hero{
 max-width:1200px;
@@ -71,10 +60,7 @@ gap:60px;
 align-items:center;
 }
 
-.hero h1{
-font-size:62px;
-line-height:1.1;
-}
+.hero h1{font-size:62px;line-height:1.1;}
 
 .hero h1 span{
 background:linear-gradient(90deg,#4AA9FF,#9B6BFF);
@@ -82,18 +68,9 @@ background:linear-gradient(90deg,#4AA9FF,#9B6BFF);
 color:transparent;
 }
 
-.hero p{
-margin-top:25px;
-font-size:20px;
-color:#bbb;
-}
+.hero p{margin-top:25px;font-size:20px;color:#bbb;}
 
-.buttons{
-display:flex;
-gap:14px;
-margin-top:35px;
-flex-wrap:wrap;
-}
+.buttons{display:flex;gap:14px;margin-top:35px;flex-wrap:wrap;}
 
 button{
 padding:18px 28px;
@@ -103,28 +80,14 @@ cursor:pointer;
 font-size:16px;
 }
 
-.primary{
-background:linear-gradient(90deg,#3A7BFF,#8A4CFF);
-color:white;
-}
-
-.secondary{
-background:transparent;
-border:1px solid #444;
-color:white;
-}
+.primary{background:linear-gradient(90deg,#3A7BFF,#8A4CFF);color:white;}
+.secondary{background:transparent;border:1px solid #444;color:white;}
 
 .preview{
 height:540px;
-background:
-linear-gradient(
-180deg,
-rgba(255,255,255,.08),
-rgba(255,255,255,.02)
-);
+background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
 padding:35px;
 border-radius:32px;
-
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -137,52 +100,41 @@ border-radius:22px;
 margin-bottom:18px;
 }
 
-.wallet h3{
-margin-bottom:10px;
-}
-
 .section{
 max-width:1200px;
 margin:auto;
 padding:80px 8%;
 }
 
-.title{
-text-align:center;
-font-size:42px;
-margin-bottom:50px;
-}
+.title{text-align:center;font-size:42px;margin-bottom:50px;}
 
 .cards{
 display:grid;
-grid-template-columns:
-repeat(
-auto-fit,
-minmax(300px,1fr)
-);
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 gap:25px;
 }
 
 .card{
-background:
-rgba(
-255,
-255,
-255,
-0.05
-);
-
+background:rgba(255,255,255,0.05);
 padding:35px;
-
 border-radius:22px;
+position:relative;
 }
 
-.plan{
-text-align:center;
-}
+.plan{text-align:center;}
 
-.highlight{
-border:1px solid #5A7DFF;
+.highlight{border:2px solid #5A7DFF;}
+
+.badge{
+position:absolute;
+top:15px;
+right:15px;
+background:#ffcc00;
+color:#111;
+padding:6px 10px;
+border-radius:10px;
+font-size:12px;
+font-weight:700;
 }
 
 .price{
@@ -191,9 +143,45 @@ font-weight:800;
 margin:18px;
 }
 
-.cta{
-text-align:center;
+.small{font-size:13px;color:#bbb;}
+
+.toggle{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-bottom:30px;
 }
+
+.toggle button{
+padding:10px 16px;
+border-radius:10px;
+border:1px solid #444;
+background:transparent;
+color:white;
+cursor:pointer;
+}
+
+.toggle .active{
+background:#3A7BFF;
+border:none;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:30px;
+overflow:hidden;
+border-radius:12px;
+}
+
+th,td{
+padding:14px;
+border-bottom:1px solid #222;
+text-align:center;
+font-size:14px;
+}
+
+.cta{text-align:center;}
 
 footer{
 padding:50px;
@@ -202,23 +190,10 @@ color:#777;
 }
 
 @media(max-width:900px){
-
-.hero{
-grid-template-columns:1fr;
-}
-
-.hero h1{
-font-size:42px;
-}
-
-nav{
-display:none;
-}
-
-.preview{
-height:auto;
-}
-
+.hero{grid-template-columns:1fr;}
+.hero h1{font-size:42px;}
+nav{display:none;}
+.preview{height:auto;}
 }
 
 </style>
@@ -228,375 +203,153 @@ height:auto;
 <body>
 
 <header>
-
-<div class="logo">
-
-TARJETA <span>LINK</span>
-
-</div>
-
+<div class="logo">TARJETA <span>LINK</span></div>
 <nav>
-
 <a href="/">Inicio</a>
-
-<a href="#planes">
-
-Planes
-
-</a>
-
-<a href="#contacto">
-
-Contacto
-
-</a>
-
+<a href="#planes">Planes</a>
+<a href="#contacto">Contacto</a>
 </nav>
-
 </header>
 
 <section class="hero">
 
 <div>
-
-<h1>
-
-Convierte visitas en
-<span>
-
-clientes frecuentes
-
-</span>
-
-</h1>
-
-<p>
-
-Sistema de fidelización con QR,
-Google Wallet,
-visitas,
-puntos
-y recompensas.
-
-</p>
+<h1>Convierte visitas en <span>clientes frecuentes</span></h1>
+<p>Sistema de fidelización con QR, Google Wallet, visitas, puntos y recompensas.</p>
 
 <div class="buttons">
-
-<a href="https://wa.me/573113031480?text=Hola%20quiero%20informaci%C3%B3n%20sobre%20Tarjeta%20Link%20Fidelizacion" target="_blank">
-
-<button class="primary">
-
-Solicitar Demo
-
-</button>
-
-</a>
-
-<a href="#planes">
-
-<button class="secondary">
-
-Ver Planes
-
-</button>
-
-</a>
-
+<a href="https://wa.me/573113031480" target="_blank"><button class="primary">Solicitar Demo</button></a>
+<a href="#planes"><button class="secondary">Ver Planes</button></a>
 </div>
-
 </div>
 
 <div class="preview">
-
-<div class="wallet">
-
-<h3>📲 Tarjeta Digital</h3>
-
-<p>9 compras = 1 gratis</p>
-
-</div>
-
-<div class="wallet">
-
-<h3>📈 Estadísticas</h3>
-
-<p>Clientes • Puntos • Recompensas</p>
-
-</div>
-
-<div class="wallet">
-
-<h3>🔳 QR Integrado</h3>
-
-<p>Registro inmediato</p>
-
-</div>
-
+<div class="wallet"><h3>📲 Tarjeta Digital</h3><p>9 compras = 1 gratis</p></div>
+<div class="wallet"><h3>📈 Estadísticas</h3><p>Clientes • Puntos • Recompensas</p></div>
+<div class="wallet"><h3>🔳 QR Integrado</h3><p>Registro inmediato</p></div>
 </div>
 
 </section>
 
 <section class="section">
 
-<h2 class="title">
-
-Todo incluido
-
-</h2>
+<h2 class="title">Todo incluido</h2>
 
 <div class="cards">
-
-<div class="card">
-
-QR para clientes
-
-</div>
-
-<div class="card">
-
-Google Wallet
-
-</div>
-
-<div class="card">
-
-Panel administrador
-
-</div>
-
-<div class="card">
-
-Visitas y puntos
-
-</div>
-
+<div class="card">QR para clientes</div>
+<div class="card">Google Wallet</div>
+<div class="card">Panel administrador</div>
+<div class="card">Visitas y puntos</div>
 </div>
 
 </section>
 
 <section class="section" id="planes">
 
-<h2 class="title">
+<h2 class="title">Planes Tarjeta Link</h2>
 
-Planes Tarjeta Link
-
-</h2>
+<div class="toggle">
+<button class="active" onclick="setPlan('mensual')">Mensual</button>
+<button onclick="setPlan('anual')">Anual</button>
+</div>
 
 <div class="cards">
 
 <div class="card plan">
-
 <h3>🥉 Recompensa</h3>
-
-<div class="price">$29.900</div>
-
-<p>
-
-✔ Hasta 300 clientes
-
-<br><br>
-
-✔ Tarjeta digital
-
-<br><br>
-
-✔ QR
-
-<br><br>
-
-✔ Fidelización por visitas
-
-<br><br>
-
-✔ Estadísticas básicas
-
-<br><br>
-
-✔ Soporte
-
-</p>
-
+<div class="price" data-m="29900" data-a="299000">$29.900</div>
+<div class="small">Suscripción mensual</div>
+<p class="small">Hasta 300 clientes</p>
 <br>
-
-<a href="https://wa.me/573113031480?text=Hola%20quiero%20el%20plan%20Recompensa">
-
-<button class="secondary">
-
-Elegir Plan
-
-</button>
-
-</a>
-
+<button class="secondary">Elegir Plan</button>
 </div>
 
 <div class="card plan highlight">
-
+<div class="badge">🔥 MÁS VENDIDO</div>
 <h3>🥈 Comunidad</h3>
-
-<div class="price">$49.900</div>
-
-<p>
-
-✔ Hasta 1000 clientes
-
-<br><br>
-
-✔ Todo lo anterior
-
-<br><br>
-
-✔ Google Wallet
-
-<br><br>
-
-✔ Fidelización por puntos
-
-<br><br>
-
-✔ Recompensas
-
-<br><br>
-
-✔ Panel negocio
-
-</p>
-
+<div class="price" data-m="49900" data-a="499000">$49.900</div>
+<div class="small">Suscripción mensual</div>
+<p class="small">Hasta 1000 clientes</p>
 <br>
-
-<a href="https://wa.me/573113031480?text=Hola%20quiero%20el%20plan%20Comunidad">
-
-<button class="primary">
-
-Elegir Plan
-
-</button>
-
-</a>
-
+<button class="primary">Elegir Plan</button>
 </div>
 
 <div class="card plan">
-
 <h3>🥇 Embajadores</h3>
-
-<div class="price">$79.900</div>
-
-<p>
-
-✔ Clientes ilimitados
-
-<br><br>
-
-✔ Todo lo anterior
-
-<br><br>
-
-✔ Estadísticas avanzadas
-
-<br><br>
-
-✔ Soporte prioritario
-
-<br><br>
-
-✔ Gestión completa
-
-</p>
-
+<div class="price" data-m="79900" data-a="799000">$79.900</div>
+<div class="small">Suscripción mensual</div>
+<p class="small">Clientes ilimitados</p>
 <br>
-
-<a href="https://wa.me/573113031480?text=Hola%20quiero%20el%20plan%20Embajadores">
-
-<button class="secondary">
-
-Elegir Plan
-
-</button>
-
-</a>
-
+<button class="secondary">Elegir Plan</button>
 </div>
 
 </div>
+
+<table>
+<tr>
+<th>Características</th>
+<th>Recompensa</th>
+<th>Comunidad</th>
+<th>Embajadores</th>
+</tr>
+<tr>
+<td>Clientes</td>
+<td>300</td>
+<td>1000</td>
+<td>Ilimitado</td>
+</tr>
+<tr>
+<td>QR + Wallet</td>
+<td>✔</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>Estadísticas</td>
+<td>Básicas</td>
+<td>Intermedias</td>
+<td>Avanzadas</td>
+</tr>
+</table>
 
 </section>
 
 <section class="section">
 
-<h2 class="title">
-
-¿Cómo funciona?
-
-</h2>
+<h2 class="title">¿Cómo funciona?</h2>
 
 <div class="cards">
-
-<div class="card">
-
-1️⃣ Configuramos tu tarjeta
-
-</div>
-
-<div class="card">
-
-2️⃣ Compartes QR
-
-</div>
-
-<div class="card">
-
-3️⃣ Acumulan visitas
-
-</div>
-
-<div class="card">
-
-4️⃣ Entregas recompensas
-
-</div>
-
+<div class="card">1️⃣ Configuramos tu tarjeta</div>
+<div class="card">2️⃣ Compartes QR</div>
+<div class="card">3️⃣ Acumulan visitas</div>
+<div class="card">4️⃣ Entregas recompensas</div>
 </div>
 
 </section>
 
 <section class="section cta" id="contacto">
 
-<h2>
-
-Configuración inicial
-
-</h2>
-
+<h2>Configuración inicial</h2>
 <br>
-
-<h1>
-
-$99.000
-
-</h1>
-
+<h1>$99.000</h1>
 <br><br>
-
-<a href="https://wa.me/573113031480?text=Hola%20quiero%20crear%20mi%20tarjeta%20de%20fidelizacion">
-
-<button class="primary">
-
-Empezar Ahora
-
-</button>
-
-</a>
+<button class="primary">Empezar Ahora</button>
 
 </section>
 
-<footer>
+<footer>© Tarjeta Link</footer>
 
-© Tarjeta Link
+<script>
+function setPlan(type){
+document.querySelectorAll('.toggle button').forEach(b=>b.classList.remove('active'));
+event.target.classList.add('active');
 
-</footer>
+document.querySelectorAll('.price').forEach(p=>{
+let val = type==='mensual'?p.dataset.m:p.dataset.a;
+p.innerText = '$'+Number(val).toLocaleString('es-CO');
+});
+}
+</script>
 
 </body>
-
 </html>
-```
