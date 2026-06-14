@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Tarjeta Link | Fidelización</title>
+<title>Tarjeta Link | Sistema de Fidelización</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -59,7 +59,7 @@ gap:60px;
 align-items:center;
 }
 
-.hero h1{font-size:62px;line-height:1.1;}
+.hero h1{font-size:58px;line-height:1.1;}
 
 .hero h1 span{
 background:linear-gradient(90deg,#4AA9FF,#9B6BFF);
@@ -67,37 +67,20 @@ background:linear-gradient(90deg,#4AA9FF,#9B6BFF);
 color:transparent;
 }
 
-.hero p{margin-top:25px;font-size:20px;color:#bbb;}
+.hero p{margin-top:20px;font-size:18px;color:#bbb;}
 
-.buttons{display:flex;gap:14px;margin-top:35px;flex-wrap:wrap;}
+.buttons{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;}
 
 button{
-padding:18px 28px;
+padding:16px 24px;
 border:none;
-border-radius:16px;
+border-radius:14px;
 cursor:pointer;
-font-size:16px;
+font-size:15px;
 }
 
 .primary{background:linear-gradient(90deg,#3A7BFF,#8A4CFF);color:white;}
 .secondary{background:transparent;border:1px solid #444;color:white;}
-
-.preview{
-height:540px;
-background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.02));
-padding:35px;
-border-radius:32px;
-display:flex;
-flex-direction:column;
-justify-content:center;
-}
-
-.wallet{
-background:#0E1636;
-padding:25px;
-border-radius:22px;
-margin-bottom:18px;
-}
 
 .section{
 max-width:1200px;
@@ -105,7 +88,7 @@ margin:auto;
 padding:80px 8%;
 }
 
-.title{text-align:center;font-size:42px;margin-bottom:50px;}
+.title{text-align:center;font-size:40px;margin-bottom:50px;}
 
 .cards{
 display:grid;
@@ -115,9 +98,8 @@ gap:25px;
 
 .card{
 background:rgba(255,255,255,0.05);
-padding:35px;
+padding:30px;
 border-radius:22px;
-position:relative;
 transition:0.3s;
 }
 
@@ -125,13 +107,12 @@ transition:0.3s;
 transform:translateY(-5px);
 }
 
-.plan{text-align:center;}
+.plan{text-align:left;}
 
 .highlight{
 border:2px solid #5A7DFF;
-transform:scale(1.05);
-box-shadow:0 0 40px rgba(90,125,255,0.25);
-z-index:2;
+box-shadow:0 0 35px rgba(90,125,255,0.2);
+transform:scale(1.03);
 }
 
 .badge{
@@ -147,12 +128,23 @@ font-weight:700;
 }
 
 .price{
-font-size:44px;
+font-size:38px;
 font-weight:800;
-margin:18px;
+margin:15px 0;
 }
 
 .small{font-size:13px;color:#bbb;}
+
+ul{
+margin-top:15px;
+padding-left:18px;
+}
+
+li{
+margin-bottom:8px;
+font-size:14px;
+color:#ddd;
+}
 
 .toggle{
 display:flex;
@@ -178,9 +170,7 @@ border:none;
 table{
 width:100%;
 border-collapse:collapse;
-margin-top:30px;
-overflow:hidden;
-border-radius:12px;
+margin-top:40px;
 }
 
 th,td{
@@ -190,7 +180,9 @@ text-align:center;
 font-size:14px;
 }
 
-.cta{text-align:center;}
+.cta{
+text-align:center;
+}
 
 footer{
 padding:50px;
@@ -200,9 +192,8 @@ color:#777;
 
 @media(max-width:900px){
 .hero{grid-template-columns:1fr;}
-.hero h1{font-size:42px;}
+.hero h1{font-size:40px;}
 nav{display:none;}
-.preview{height:auto;}
 }
 
 </style>
@@ -214,24 +205,22 @@ nav{display:none;}
 <header>
 <div class="logo">TARJETA <span>LINK</span></div>
 <nav>
-<a href="/">Inicio</a>
 <a href="#planes">Planes</a>
 <a href="#contacto">Contacto</a>
 </nav>
 </header>
 
+<!-- HERO -->
 <section class="hero">
 
 <div>
-<h1>Haz que tus clientes vuelvan una y otra vez sin esfuerzo</h1>
+<h1>Convierte clientes en visitas recurrentes automáticamente</h1>
 
-<p>Convierte cada visita en fidelización automática con una tarjeta digital con QR, puntos y recompensas.</p>
-
-<p class="small">Ideal para restaurantes, barberías, tiendas y negocios locales.</p>
+<p>Sistema de fidelización digital con QR, puntos, recompensas y control de clientes desde un solo panel.</p>
 
 <div class="buttons">
 <a href="https://wa.me/573113031480" target="_blank">
-<button class="primary">Quiero aumentar mis clientes recurrentes</button>
+<button class="primary">Solicitar Demo</button>
 </a>
 <a href="#planes">
 <button class="secondary">Ver Planes</button>
@@ -239,54 +228,48 @@ nav{display:none;}
 </div>
 </div>
 
-<div class="preview">
-<div class="wallet"><h3>📲 Tarjeta Digital</h3><p>9 compras = 1 gratis</p></div>
-<div class="wallet"><h3>📈 Estadísticas</h3><p>Clientes • Puntos • Recompensas</p></div>
-<div class="wallet"><h3>🔳 QR Integrado</h3><p>Registro inmediato</p></div>
+<div>
+<div class="card">
+<h3>📲 Tarjeta Digital</h3>
+<p class="small">Clientes guardan tu negocio en su celular</p>
+</div>
+
+<br>
+
+<div class="card">
+<h3>🎯 Fidelización Automática</h3>
+<p class="small">Visitas + recompensas sin esfuerzo</p>
+</div>
+
+<br>
+
+<div class="card">
+<h3>📊 Control de clientes</h3>
+<p class="small">Historial y comportamiento del cliente</p>
+</div>
 </div>
 
 </section>
 
+<!-- BENEFICIOS -->
 <section class="section">
 
-<h2 class="title">¿Por qué los clientes no vuelven?</h2>
+<h2 class="title">¿Por qué tu negocio necesita esto?</h2>
 
 <div class="cards">
-<div class="card">Olvidan tu negocio</div>
-<div class="card">No tienen incentivo para regresar</div>
-<div class="card">No tienes seguimiento automático</div>
+
+<div class="card">Los clientes olvidan tu negocio</div>
+<div class="card">No tienes sistema de recompensas</div>
+<div class="card">Pierdes ventas repetidas</div>
+
 </div>
 
 </section>
 
-<section class="section">
-
-<h2 class="title">Todo incluido</h2>
-
-<div class="cards">
-<div class="card">QR para clientes</div>
-<div class="card">Google Wallet</div>
-<div class="card">Panel administrador</div>
-<div class="card">Visitas y puntos</div>
-</div>
-
-</section>
-
-<section class="section">
-
-<h2 class="title">Activación del sistema</h2>
-
-<div class="card" style="text-align:center;margin-bottom:30px;">
-<h3>🚀 Configuración inicial</h3>
-<h1>$99.000</h1>
-<p class="small">Pago único para activar tu sistema de fidelización</p>
-</div>
-
-</section>
-
+<!-- PLANES -->
 <section class="section" id="planes">
 
-<h2 class="title">Planes Tarjeta Link</h2>
+<h2 class="title">Planes de Fidelización</h2>
 
 <div class="toggle">
 <button class="active" onclick="setPlan('mensual',event)">Mensual</button>
@@ -295,85 +278,125 @@ nav{display:none;}
 
 <div class="cards">
 
+<!-- PLAN 1 -->
 <div class="card plan">
 <h3>🥉 Recompensa</h3>
-<p class="small">Suscripción mensual</p>
+<p class="small">Ideal para iniciar</p>
+
 <div class="price" data-m="29900" data-a="299000">$29.900</div>
-<p class="small">Hasta 300 clientes</p>
-<p class="small">💰 Ahorro anual: 2 meses gratis</p>
+
+<ul>
+<li>✔ Notificaciones ilimitadas</li>
+<li>✔ Clientes ilimitados</li>
+<li>✔ Panel de clientes</li>
+<li>✔ 1 tarjeta activa</li>
+<li>✔ 1 ubicación</li>
+<li>✔ 1 sistema de recompensas</li>
+</ul>
+
 <br>
 <button class="secondary">Elegir Plan</button>
 </div>
 
+<!-- PLAN 2 -->
 <div class="card plan highlight">
 <div class="badge">🔥 MÁS VENDIDO</div>
+
 <h3>🥈 Comunidad</h3>
-<p class="small">Suscripción mensual</p>
+<p class="small">Negocios en crecimiento</p>
+
 <div class="price" data-m="49900" data-a="499000">$49.900</div>
-<p class="small">Hasta 1000 clientes</p>
-<p class="small">💰 Ahorro anual: 2 meses gratis</p>
+
+<ul>
+<li>✔ Todo lo del plan básico</li>
+<li>✔ Estadísticas avanzadas</li>
+<li>✔ Segmentación de clientes</li>
+<li>✔ 2 usuarios del sistema</li>
+<li>✔ 3 ubicaciones</li>
+<li>✔ Notificaciones automáticas</li>
+<li>✔ Campañas promocionales</li>
+</ul>
+
 <br>
 <button class="primary">Elegir Plan</button>
 </div>
 
+<!-- PLAN 3 -->
 <div class="card plan">
 <h3>🥇 Embajadores</h3>
-<p class="small">Suscripción mensual</p>
+<p class="small">Sistema completo automatizado</p>
+
 <div class="price" data-m="79900" data-a="799000">$79.900</div>
-<p class="small">Clientes ilimitados</p>
-<p class="small">💰 Ahorro anual: 2 meses gratis</p>
+
+<ul>
+<li>✔ Todo lo del plan comunidad</li>
+<li>✔ CRM de clientes completo</li>
+<li>✔ Automatización de fidelización</li>
+<li>✔ Campañas ilimitadas</li>
+<li>✔ QR dinámico por campaña</li>
+<li>✔ Reportes avanzados</li>
+</ul>
+
 <br>
 <button class="secondary">Elegir Plan</button>
 </div>
 
 </div>
 
+<!-- TABLA -->
 <table>
 <tr>
-<th>Características</th>
-<th>Recompensa</th>
-<th>Comunidad</th>
-<th>Embajadores</th>
+<th>Característica</th>
+<th>Básico</th>
+<th>Medio</th>
+<th>Pro</th>
 </tr>
+
 <tr>
 <td>Clientes</td>
-<td>300</td>
-<td>1000</td>
-<td>Ilimitado</td>
+<td>Ilimitados</td>
+<td>Ilimitados</td>
+<td>Ilimitados</td>
 </tr>
+
 <tr>
-<td>QR + Wallet</td>
-<td>✔</td>
-<td>✔</td>
-<td>✔</td>
+<td>Automatización</td>
+<td>❌</td>
+<td>Parcial</td>
+<td>Completa</td>
 </tr>
+
 <tr>
-<td>Estadísticas</td>
-<td>Básicas</td>
-<td>Intermedias</td>
-<td>Avanzadas</td>
+<td>CRM</td>
+<td>Básico</td>
+<td>Intermedio</td>
+<td>Avanzado</td>
 </tr>
+
 </table>
 
 </section>
 
+<!-- CTA -->
 <section class="section cta" id="contacto">
 
-<h2>Empieza hoy a fidelizar clientes reales</h2>
+<h2>Empieza a fidelizar clientes hoy</h2>
 <h1>$99.000</h1>
-<p class="small">Pago único de configuración inicial</p>
+<p class="small">Configuración inicial del sistema</p>
+
 <br>
 
 <a href="https://wa.me/573113031480" target="_blank">
-<button class="primary">Activar mi sistema de fidelización</button>
+<button class="primary">Activar sistema ahora</button>
 </a>
 
 </section>
 
-<footer>© Tarjeta Link</footer>
+<footer>© Tarjeta Link - Sistema de Fidelización</footer>
 
 <script>
-function setPlan(type, event){
+function setPlan(type,event){
+
 document.querySelectorAll('.toggle button').forEach(b=>b.classList.remove('active'));
 event.target.classList.add('active');
 
@@ -381,6 +404,7 @@ document.querySelectorAll('.price').forEach(p=>{
 let val = type==='mensual'?p.dataset.m:p.dataset.a;
 p.innerText = '$'+Number(val).toLocaleString('es-CO');
 });
+
 }
 </script>
 
