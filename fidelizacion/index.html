@@ -2,7 +2,6 @@
 <html lang="es">
 
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -119,11 +118,21 @@ background:rgba(255,255,255,0.05);
 padding:35px;
 border-radius:22px;
 position:relative;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
 }
 
 .plan{text-align:center;}
 
-.highlight{border:2px solid #5A7DFF;}
+.highlight{
+border:2px solid #5A7DFF;
+transform:scale(1.05);
+box-shadow:0 0 40px rgba(90,125,255,0.25);
+z-index:2;
+}
 
 .badge{
 position:absolute;
@@ -214,12 +223,19 @@ nav{display:none;}
 <section class="hero">
 
 <div>
-<h1>Convierte visitas en <span>clientes frecuentes</span></h1>
-<p>Sistema de fidelización con QR, Google Wallet, visitas, puntos y recompensas.</p>
+<h1>Haz que tus clientes vuelvan una y otra vez sin esfuerzo</h1>
+
+<p>Convierte cada visita en fidelización automática con una tarjeta digital con QR, puntos y recompensas.</p>
+
+<p class="small">Ideal para restaurantes, barberías, tiendas y negocios locales.</p>
 
 <div class="buttons">
-<a href="https://wa.me/573113031480" target="_blank"><button class="primary">Solicitar Demo</button></a>
-<a href="#planes"><button class="secondary">Ver Planes</button></a>
+<a href="https://wa.me/573113031480" target="_blank">
+<button class="primary">Quiero aumentar mis clientes recurrentes</button>
+</a>
+<a href="#planes">
+<button class="secondary">Ver Planes</button>
+</a>
 </div>
 </div>
 
@@ -227,6 +243,18 @@ nav{display:none;}
 <div class="wallet"><h3>📲 Tarjeta Digital</h3><p>9 compras = 1 gratis</p></div>
 <div class="wallet"><h3>📈 Estadísticas</h3><p>Clientes • Puntos • Recompensas</p></div>
 <div class="wallet"><h3>🔳 QR Integrado</h3><p>Registro inmediato</p></div>
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="title">¿Por qué los clientes no vuelven?</h2>
+
+<div class="cards">
+<div class="card">Olvidan tu negocio</div>
+<div class="card">No tienen incentivo para regresar</div>
+<div class="card">No tienes seguimiento automático</div>
 </div>
 
 </section>
@@ -244,22 +272,35 @@ nav{display:none;}
 
 </section>
 
+<section class="section">
+
+<h2 class="title">Activación del sistema</h2>
+
+<div class="card" style="text-align:center;margin-bottom:30px;">
+<h3>🚀 Configuración inicial</h3>
+<h1>$99.000</h1>
+<p class="small">Pago único para activar tu sistema de fidelización</p>
+</div>
+
+</section>
+
 <section class="section" id="planes">
 
 <h2 class="title">Planes Tarjeta Link</h2>
 
 <div class="toggle">
-<button class="active" onclick="setPlan('mensual')">Mensual</button>
-<button onclick="setPlan('anual')">Anual</button>
+<button class="active" onclick="setPlan('mensual',event)">Mensual</button>
+<button onclick="setPlan('anual',event)">Anual (Ahorra)</button>
 </div>
 
 <div class="cards">
 
 <div class="card plan">
 <h3>🥉 Recompensa</h3>
+<p class="small">Suscripción mensual</p>
 <div class="price" data-m="29900" data-a="299000">$29.900</div>
-<div class="small">Suscripción mensual</div>
 <p class="small">Hasta 300 clientes</p>
+<p class="small">💰 Ahorro anual: 2 meses gratis</p>
 <br>
 <button class="secondary">Elegir Plan</button>
 </div>
@@ -267,18 +308,20 @@ nav{display:none;}
 <div class="card plan highlight">
 <div class="badge">🔥 MÁS VENDIDO</div>
 <h3>🥈 Comunidad</h3>
+<p class="small">Suscripción mensual</p>
 <div class="price" data-m="49900" data-a="499000">$49.900</div>
-<div class="small">Suscripción mensual</div>
 <p class="small">Hasta 1000 clientes</p>
+<p class="small">💰 Ahorro anual: 2 meses gratis</p>
 <br>
 <button class="primary">Elegir Plan</button>
 </div>
 
 <div class="card plan">
 <h3>🥇 Embajadores</h3>
+<p class="small">Suscripción mensual</p>
 <div class="price" data-m="79900" data-a="799000">$79.900</div>
-<div class="small">Suscripción mensual</div>
 <p class="small">Clientes ilimitados</p>
+<p class="small">💰 Ahorro anual: 2 meses gratis</p>
 <br>
 <button class="secondary">Elegir Plan</button>
 </div>
@@ -314,33 +357,23 @@ nav{display:none;}
 
 </section>
 
-<section class="section">
-
-<h2 class="title">¿Cómo funciona?</h2>
-
-<div class="cards">
-<div class="card">1️⃣ Configuramos tu tarjeta</div>
-<div class="card">2️⃣ Compartes QR</div>
-<div class="card">3️⃣ Acumulan visitas</div>
-<div class="card">4️⃣ Entregas recompensas</div>
-</div>
-
-</section>
-
 <section class="section cta" id="contacto">
 
-<h2>Configuración inicial</h2>
-<br>
+<h2>Empieza hoy a fidelizar clientes reales</h2>
 <h1>$99.000</h1>
-<br><br>
-<button class="primary">Empezar Ahora</button>
+<p class="small">Pago único de configuración inicial</p>
+<br>
+
+<a href="https://wa.me/573113031480" target="_blank">
+<button class="primary">Activar mi sistema de fidelización</button>
+</a>
 
 </section>
 
 <footer>© Tarjeta Link</footer>
 
 <script>
-function setPlan(type){
+function setPlan(type, event){
 document.querySelectorAll('.toggle button').forEach(b=>b.classList.remove('active'));
 event.target.classList.add('active');
 
