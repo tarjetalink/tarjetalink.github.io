@@ -451,6 +451,142 @@ document
 
 }
 
+<script type="module">
+
+import {
+initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
+import {
+
+getFirestore,
+
+collection,
+
+addDoc,
+
+serverTimestamp
+
+}
+from
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig={
+
+apiKey:"AIzaSyA6BsCxdMu8CoFQJ2tcrPR0KPK9BFDloIU",
+
+authDomain:"tarjeta-link-94df7.firebaseapp.com",
+
+projectId:"tarjeta-link-94df7",
+
+storageBucket:"tarjeta-link-94df7.firebasestorage.app",
+
+messagingSenderId:"502965046746",
+
+appId:"1:502965046746:web:ceb673b54e066805f284e3"
+
+};
+
+const app=
+initializeApp(firebaseConfig);
+
+const db=
+getFirestore(app);
+
+window.show=function(id){
+
+document
+.querySelectorAll(".panel")
+.forEach(p=>
+p.classList
+.remove("active")
+);
+
+document
+.getElementById(id)
+.classList
+.add("active");
+
+}
+
+window.saveCard=
+async function(){
+
+const name=
+document
+.getElementById("cardName")
+.value
+.trim();
+
+const color=
+document
+.getElementById("cardColor")
+.value
+.trim();
+
+if(!name||!color){
+
+alert(
+"Completa los campos"
+);
+
+return;
+
+}
+
+try{
+
+await addDoc(
+
+collection(
+db,
+"cards"
+),
+
+{
+
+name,
+
+color,
+
+businessId:
+"Ad1Te5MFbW6PoPkY1dkL",
+
+createdAt:
+serverTimestamp()
+
+}
+
+);
+
+alert(
+"Tarjeta guardada"
+);
+
+document
+.getElementById("cardName")
+.value="";
+
+document
+.getElementById("cardColor")
+.value="";
+
+}
+
+catch(error){
+
+console.log(error);
+
+alert(
+"Error al guardar"
+);
+
+}
+
+}
+
 </script>
 
 </body>
