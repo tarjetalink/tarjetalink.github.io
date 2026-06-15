@@ -29,156 +29,99 @@ min-height:100vh;
 }
 
 .sidebar{
-
 background:#111c3d;
-
 padding:30px;
-
 }
 
 .logo{
-
 font-size:28px;
-
 font-weight:bold;
-
 margin-bottom:40px;
-
 }
 
 .menu{
-
 display:flex;
-
 flex-direction:column;
-
 gap:12px;
-
 }
 
 .menu button{
-
 padding:14px;
-
 background:#18284e;
-
 border:none;
-
 color:white;
-
 border-radius:10px;
-
 cursor:pointer;
-
 text-align:left;
+}
 
+.menu button:hover{
+background:#2b4785;
 }
 
 .content{
-
 padding:30px;
-
 }
 
 .panel{
-
 display:none;
-
 }
 
 .panel.active{
-
 display:block;
-
 }
 
 .grid{
-
 display:grid;
-
 grid-template-columns:
 repeat(auto-fit,minmax(250px,1fr));
-
 gap:20px;
-
 margin-top:20px;
-
 }
 
 .card{
-
 background:#131f45;
-
 padding:20px;
-
 border-radius:16px;
-
 }
 
 input{
-
 width:100%;
-
 padding:12px;
-
 margin-top:10px;
-
 border:none;
-
 border-radius:8px;
-
 }
 
 button.primary{
-
 margin-top:12px;
-
 padding:12px;
-
 background:#3a7bff;
-
 color:white;
-
 border:none;
-
 border-radius:10px;
-
 cursor:pointer;
-
 width:100%;
-
 }
 
 table{
-
 width:100%;
-
 margin-top:20px;
-
 border-collapse:collapse;
-
 }
 
 th,td{
-
 padding:14px;
-
 border-bottom:1px solid #223760;
-
 }
 
 .qr{
-
 text-align:center;
-
 padding:40px;
-
 }
 
 .qr img{
-
 width:220px;
-
 }
 
 </style>
@@ -223,16 +166,9 @@ TARJETA LINK
 
 <div class="content">
 
-<!-- CLIENTES -->
+<div id="clientes" class="panel active">
 
-<div
-id="clientes"
-class="panel active"
->
-
-<h2>
-Clientes
-</h2>
+<h2>Clientes</h2>
 
 <div class="card">
 
@@ -241,11 +177,8 @@ Clientes
 <thead>
 
 <tr>
-
 <th>Cliente</th>
-
 <th>Visitas</th>
-
 </tr>
 
 </thead>
@@ -253,15 +186,8 @@ Clientes
 <tbody>
 
 <tr>
-
-<td>
-Sin registros
-</td>
-
-<td>
-—
-</td>
-
+<td>Sin registros</td>
+<td>—</td>
 </tr>
 
 </tbody>
@@ -272,16 +198,54 @@ Sin registros
 
 </div>
 
-<!-- RECOMPENSAS -->
+<div id="recompensas" class="panel">
 
-<div
-id="recompensas"
-class="panel"
->
+<h2>Crear recompensa</h2>
 
-<h2>
-Crear recompensa
-</h2>
+<div class="card">
+
+<input placeholder="Nombre recompensa">
+
+<input placeholder="Visitas requeridas">
+
+<button class="primary">
+
+Guardar
+
+</button>
+
+</div>
+
+</div>
+
+<div id="visitas" class="panel">
+
+<h2>Resumen visitas</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>0</h3>
+<p>Clientes registrados</p>
+</div>
+
+<div class="card">
+<h3>0</h3>
+<p>Visitas</p>
+</div>
+
+<div class="card">
+<h3>0</h3>
+<p>Recompensas</p>
+</div>
+
+</div>
+
+</div>
+
+<div id="tarjeta" class="panel">
+
+<h2>Configurar tarjeta</h2>
 
 <div class="card">
 
@@ -303,106 +267,14 @@ onclick="saveCard()"
 Guardar
 
 </button>
-</div>
-
-</div>
-
-<!-- VISITAS -->
-
-<div
-id="visitas"
-class="panel"
->
-
-<h2>
-Resumen visitas
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>
-0
-</h3>
-
-<p>
-Clientes registrados
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>
-0
-</h3>
-
-<p>
-Visitas
-</p>
-
-</div>
-
-<div class="card">
-
-<h3>
-0
-</h3>
-
-<p>
-Recompensas
-</p>
 
 </div>
 
 </div>
 
-</div>
+<div id="qr" class="panel">
 
-<!-- TARJETA -->
-
-<div
-id="tarjeta"
-class="panel"
->
-
-<h2>
-Configurar tarjeta
-</h2>
-
-<div class="card">
-
-<input
-placeholder="Nombre tarjeta"
->
-
-<input
-placeholder="Color principal"
->
-
-<button
-class="primary"
->
-
-Guardar
-
-</button>
-
-</div>
-
-</div>
-
-<!-- QR -->
-
-<div
-id="qr"
-class="panel"
->
-
-<h2>
-Descargar QR
-</h2>
+<h2>Descargar QR</h2>
 
 <div class="card qr">
 
@@ -433,24 +305,6 @@ Descargar QR
 
 </div>
 
-<script>
-
-function show(id){
-
-document
-.querySelectorAll(".panel")
-.forEach(p=>
-p.classList
-.remove("active")
-);
-
-document
-.getElementById(id)
-.classList
-.add("active");
-
-}
-
 <script type="module">
 
 import {
@@ -473,7 +327,7 @@ serverTimestamp
 from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const firebaseConfig={
+const firebaseConfig = {
 
 apiKey:"AIzaSyA6BsCxdMu8CoFQJ2tcrPR0KPK9BFDloIU",
 
@@ -489,27 +343,25 @@ appId:"1:502965046746:web:ceb673b54e066805f284e3"
 
 };
 
-const app=
+const app =
 initializeApp(firebaseConfig);
 
-const db=
+const db =
 getFirestore(app);
 
 window.show=function(id){
 
 document
 .querySelectorAll(".panel")
-.forEach(p=>
-p.classList
-.remove("active")
+.forEach(
+p=>p.classList.remove("active")
 );
 
 document
 .getElementById(id)
-.classList
-.add("active");
+.classList.add("active");
 
-}
+};
 
 window.saveCard=
 async function(){
@@ -529,7 +381,7 @@ document
 if(!name||!color){
 
 alert(
-"Completa los campos"
+"Completa todos los campos"
 );
 
 return;
@@ -566,12 +418,8 @@ alert(
 );
 
 document
-.getElementById("cardName")
-.value="";
-
-document
-.getElementById("cardColor")
-.value="";
+.getElementById("cardName").value="";
+document.getElementById("cardColor").value="";
 
 }
 
@@ -580,12 +428,12 @@ catch(error){
 console.log(error);
 
 alert(
-"Error al guardar"
+"Error guardando tarjeta"
 );
 
 }
 
-}
+};
 
 </script>
 
