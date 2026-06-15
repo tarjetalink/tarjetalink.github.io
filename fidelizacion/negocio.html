@@ -83,6 +83,7 @@ margin-top:20px;
 background:#131f45;
 padding:20px;
 border-radius:16px;
+margin-bottom:20px;
 }
 
 input{
@@ -135,7 +136,9 @@ width:220px;
 <div class="sidebar">
 
 <div class="logo">
+
 TARJETA LINK
+
 </div>
 
 <div class="menu">
@@ -166,9 +169,34 @@ TARJETA LINK
 
 <div class="content">
 
+<!-- CLIENTES -->
+
 <div id="clientes" class="panel active">
 
 <h2>Clientes</h2>
+
+<div class="card">
+
+<input
+id="customerName"
+placeholder="Nombre cliente"
+>
+
+<input
+id="customerPhone"
+placeholder="Teléfono"
+>
+
+<button
+class="primary"
+onclick="saveCustomer()"
+>
+
+Crear Cliente
+
+</button>
+
+</div>
 
 <div class="card">
 
@@ -177,17 +205,27 @@ TARJETA LINK
 <thead>
 
 <tr>
+
 <th>Cliente</th>
+
+<th>Teléfono</th>
+
 <th>Visitas</th>
+
 </tr>
 
 </thead>
 
-<tbody>
+<tbody id="customerList">
 
 <tr>
-<td>Sin registros</td>
-<td>—</td>
+
+<td colspan="3">
+
+Sin clientes
+
+</td>
+
 </tr>
 
 </tbody>
@@ -197,6 +235,8 @@ TARJETA LINK
 </div>
 
 </div>
+
+<!-- RECOMPENSAS -->
 
 <div id="recompensas" class="panel">
 
@@ -218,6 +258,8 @@ Guardar
 
 </div>
 
+<!-- VISITAS -->
+
 <div id="visitas" class="panel">
 
 <h2>Resumen visitas</h2>
@@ -225,23 +267,34 @@ Guardar
 <div class="grid">
 
 <div class="card">
+
 <h3>0</h3>
+
 <p>Clientes registrados</p>
+
 </div>
 
 <div class="card">
+
 <h3>0</h3>
+
 <p>Visitas</p>
+
 </div>
 
 <div class="card">
+
 <h3>0</h3>
+
 <p>Recompensas</p>
-</div>
 
 </div>
 
 </div>
+
+</div>
+
+<!-- TARJETA -->
 
 <div id="tarjeta" class="panel">
 
@@ -272,6 +325,8 @@ Guardar
 
 </div>
 
+<!-- QR -->
+
 <div id="qr" class="panel">
 
 <h2>Descargar QR</h2>
@@ -281,21 +336,6 @@ Guardar
 <img
 src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://tarjetalink.github.io/fidelizacion"
 >
-
-<br><br>
-
-<a
-href="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://tarjetalink.github.io/fidelizacion"
-download
->
-
-<button class="primary">
-
-Descargar QR
-
-</button>
-
-</a>
 
 </div>
 
@@ -321,13 +361,15 @@ collection,
 
 addDoc,
 
-serverTimestamp
+serverTimestamp,
+
+onSnapshot
 
 }
 from
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const firebaseConfig = {
+const firebaseConfig={
 
 apiKey:"AIzaSyA6BsCxdMu8CoFQJ2tcrPR0KPK9BFDloIU",
 
@@ -343,18 +385,22 @@ appId:"1:502965046746:web:ceb673b54e066805f284e3"
 
 };
 
-const app =
+const app=
 initializeApp(firebaseConfig);
 
-const db =
+const db=
 getFirestore(app);
+
+const businessId=
+"Ad1Te5MFbW6PoPkY1dkL";
 
 window.show=function(id){
 
 document
 .querySelectorAll(".panel")
 .forEach(
-p=>p.classList.remove("active")
+p=>
+p.classList.remove("active")
 );
 
 document
@@ -367,28 +413,10 @@ window.saveCard=
 async function(){
 
 const name=
-document
-.getElementById("cardName")
-.value
-.trim();
+cardName.value;
 
 const color=
-document
-.getElementById("cardColor")
-.value
-.trim();
-
-if(!name||!color){
-
-alert(
-"Completa todos los campos"
-);
-
-return;
-
-}
-
-try{
+cardColor.value;
 
 await addDoc(
 
@@ -403,8 +431,7 @@ name,
 
 color,
 
-businessId:
-"Ad1Te5MFbW6PoPkY1dkL",
+businessId,
 
 createdAt:
 serverTimestamp()
@@ -417,23 +444,111 @@ alert(
 "Tarjeta guardada"
 );
 
-document
-.getElementById("cardName").value="";
-document.getElementById("cardColor").value="";
+};
+
+window.saveCustomer=
+async function(){
+
+const name=
+customerName.value;
+
+const phone=
+customerPhone.value;
+
+await addDoc(
+
+collection(
+db,
+"customers"
+),
+
+{
+
+name,
+
+phone,
+
+businessId,
+
+visits:0,
+
+points:0,
+
+status:"active",
+
+createdAt:
+serverTimestamp()
 
 }
 
-catch(error){
-
-console.log(error);
-
-alert(
-"Error guardando tarjeta"
 );
 
-}
+customerName.value="";
+customerPhone.value="";
 
 };
+
+onSnapshot(
+
+collection(
+db,
+"customers"
+),
+
+(snapshot)=>{
+
+let html="";
+
+snapshot.forEach(doc=>{
+
+let d=
+doc.data();
+
+if(
+d.businessId!==businessId
+)
+return;
+
+html+=`
+
+<tr>
+
+<td>${d.name}</td>
+
+<td>${d.phone}</td>
+
+<td>${d.visits}</td>
+
+</tr>
+
+`;
+
+});
+
+if(html===""){
+
+html=`
+
+<tr>
+
+<td colspan="3">
+
+Sin clientes
+
+</td>
+
+</tr>
+
+`;
+
+}
+
+customerList.innerHTML=
+html;
+
+}
+
+);
 
 </script>
 
