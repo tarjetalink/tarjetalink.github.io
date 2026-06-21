@@ -1,1 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Tarjeta Digital Premium</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts CDN Link Generator -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link id="dynamic-font-link" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;600;700&family=Space+Grotesk:wght@400;600;700&family=Playfair+Display:wght@600;800&family=Inter:wght@400;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons for UI -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- QR Code Generator Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- html2canvas Library for high-quality downloads -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+  <style>
+    /* Estilos base de fuentes aplicados dinámicamente */
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .font-poppins { font-family: 'Poppins', sans-serif; }
+    .font-space { font-family: 'Space Grotesk', sans-serif; }
+    .font-playfair { font-family: 'Playfair Display', serif; }
+    .font-inter { font-family: 'Inter', sans-serif; }
+    .font-outfit { font-family: 'Outfit', sans-serif; }
+    
+    /* Ocultar barra de scroll de control manteniendo funcionalidad */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col font-inter">
+
+  <!-- Header de la Aplicación -->
+  <header class="bg-slate-950 border-b border-slate-800 py-4 px-6 sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="bg-emerald-500 text-slate-950 p-2.5 rounded-xl font-bold text-xl shadow-lg shadow-emerald-500/20">
+          <i class="fa-solid fa-address-card"></i>
+        </div>
+        <div>
+          <h1 class="text-lg font-bold tracking-tight">Creador de Tarjetas QR</h1>
+          <p class="text-xs text-slate-400">Personalización de marca para clientes</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 bg-slate-800/60 px-4 py-2 rounded-full border border-slate-700 text-sm text-slate-300">
+        <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></span>
+        Soporte para Código Hexadecimal Directo
+      </div>
+    </div>
+  </header>
+
+  <!-- Contenedor Principal (Panel de Control + Vista Previa) -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    
+    <!-- COLUMNA IZQUIERDA: CONTROLES DE EDICIÓN (7 Columnas en pantallas grandes) -->
+    <section class="lg:col-span-7 bg-slate-950/80 backdrop-blur-md rounded-2xl border border-slate-800 p-6 shadow-xl space-y-6">
+      
+      <!-- Título de sección -->
+      <div class="border-b border-slate-800 pb-4">
+        <h2 class="text-xl font-bold text-emerald-400 flex items-center gap-2">
+          <i class="fa-solid fa-sliders"></i> Panel de Configuración
+        </h2>
+        <p class="text-sm text-slate-400 mt-1">Modifica textos, sube imágenes o introduce tus colores corporativos exactos.</p>
+      </div>
+
+      <!-- SECCIÓN: Textos del Cliente con campo de Cargo añadido debajo del nombre -->
+      <div class="space-y-4">
+        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-file-signature text-emerald-500"></i> Contenido Escrito
+        </h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs text-slate-400 font-medium mb-1.5">Etiqueta Superior</label>
+            <input type="text" id="input-tag" value="Tarjeta Digital" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition">
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 font-medium mb-1.5">Nombre del Cliente / Empresa</label>
+            <input type="text" id="input-title" value="El Cirujano Barbería" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs text-slate-400 font-medium mb-1.5">Cargo / Especialidad / Subtítulo</label>
+            <input type="text" id="input-role" value="Estilo, Precisión y Tendencia" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition" placeholder="Ej. Barbero Profesional">
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 font-medium mb-1.5">Texto de Escaneo</label>
+            <input type="text" id="input-scan-text" value="Escanea Código QR" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs text-slate-400 font-medium mb-1.5">URL en Pie de Página</label>
+          <input type="text" id="input-footer-text" value="tarjetalink.github.io/web/" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition">
+        </div>
+      </div>
+
+      <!-- SECCIÓN: Multimedia e Imagen de Perfil -->
+      <div class="space-y-4 pt-2 border-t border-slate-800">
+        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-image text-emerald-500"></i> Imagen de Perfil / Logo
+        </h3>
+
+        <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 space-y-3">
+          <div>
+            <label class="block text-xs text-slate-400 font-medium mb-1.5">Opción A: Pegar URL de la Imagen</label>
+            <input type="text" id="input-logo-url" placeholder="https://ejemplo.com/logo.png" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition">
+          </div>
+          <div class="text-center py-1">
+            <span class="text-xs text-slate-500 font-semibold">— O —</span>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 font-medium mb-1.5">Opción B: Subir Archivo desde tu dispositivo</label>
+            <div class="flex items-center gap-3">
+              <label class="cursor-pointer bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white px-4 py-2 rounded-lg text-xs font-semibold border border-slate-700 flex items-center gap-2 transition duration-200">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Seleccionar Imagen
+                <input type="file" id="input-logo-file" accept="image/*" class="hidden">
+              </label>
+              <span id="file-name-text" class="text-xs text-slate-500 truncate max-w-[200px]">Ningún archivo seleccionado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: Destino del Código QR (Dinámico) -->
+      <div class="space-y-4 pt-2 border-t border-slate-800">
+        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-qrcode text-emerald-500"></i> Configuración del QR
+        </h3>
+        <div>
+          <label class="block text-xs text-slate-400 font-medium mb-1.5">Destino del QR (Enlace Web, WhatsApp, etc.)</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
+              <i class="fa-solid fa-link"></i>
+            </div>
+            <input type="text" id="input-qr-link" value="https://tarjetalink.github.io/web/" class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-9 pr-3 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500 transition font-mono">
+          </div>
+          <p class="text-[11px] text-slate-500 mt-1">El código QR de la tarjeta se actualizará automáticamente con esta URL.</p>
+        </div>
+      </div>
+
+      <!-- SECCIÓN CRÍTICA: Selector de Colores con Entrada Directa de Códigos de Marca -->
+      <div class="space-y-4 pt-2 border-t border-slate-800">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+            <i class="fa-solid fa-palette text-emerald-500"></i> Paleta de Colores de Marca
+          </h3>
+          <span class="text-[11px] text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20 font-medium">Compatible con Copiar/Pegar HEX</span>
+        </div>
+
+        <p class="text-xs text-slate-400">Pega directamente los códigos hexadecimales del cliente (ej. <code class="bg-slate-900 text-slate-300 px-1 py-0.5 rounded font-mono">#1e8708</code> o <code class="bg-slate-900 text-slate-300 px-1 py-0.5 rounded font-mono">1e8708</code>) en las casillas correspondientes.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Color 1: Fondo General de la Tarjeta -->
+          <div class="bg-slate-900/40 p-3.5 rounded-xl border border-slate-800 space-y-2">
+            <label class="block text-xs text-slate-300 font-medium">1. Fondo de Tarjeta</label>
+            <div class="flex items-center gap-2">
+              <input type="color" id="picker-bg-card" value="#ffffff" class="w-9 h-9 p-0 rounded-lg border border-slate-700 bg-transparent cursor-pointer">
+              <div class="flex-1 relative">
+                <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 text-xs font-mono">#</span>
+                <input type="text" id="hex-bg-card" value="FFFFFF" class="w-full bg-slate-950 border border-slate-700 rounded-lg pl-6 pr-2.5 py-1.5 text-xs text-slate-100 font-mono uppercase focus:outline-none focus:border-emerald-500">
+              </div>
+            </div>
+          </div>
+
+          <!-- Color 2: Fondo del Recuadro de Datos -->
+          <div class="bg-slate-900/40 p-3.5 rounded-xl border border-slate-800 space-y-2">
+            <label class="block text-xs text-slate-300 font-medium">2. Fondo Recuadro de Datos</label>
+            <div class="flex items-center gap-2">
+              <input type="color" id="picker-bg-info" value="#334155" class="w-9 h-9 p-0 rounded-lg border border-slate-700 bg-transparent cursor-pointer">
+              <div class="flex-1 relative">
+                <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 text-xs font-mono">#</span>
+                <input type="text" id="hex-bg-info" value="334155" class="w-full bg-slate-950 border border-slate-700 rounded-lg pl-6 pr-2.5 py-1.5 text-xs text-slate-100 font-mono uppercase focus:outline-none focus:border-emerald-500">
+              </div>
+            </div>
+          </div>
+
+          <!-- Color 3: Texto de Datos (Nombre/Etiqueta) -->
+          <div class="bg-slate-900/40 p-3.5 rounded-xl border border-slate-800 space-y-2">
+            <label class="block text-xs text-slate-300 font-medium">3. Texto en Recuadro de Datos</label>
+            <div class="flex items-center gap-2">
+              <input type="color" id="picker-text-info" value="#ffffff" class="w-9 h-9 p-0 rounded-lg border border-slate-700 bg-transparent cursor-pointer">
+              <div class="flex-1 relative">
+                <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 text-xs font-mono">#</span>
+                <input type="text" id="hex-text-info" value="FFFFFF" class="w-full bg-slate-950 border border-slate-700 rounded-lg pl-6 pr-2.5 py-1.5 text-xs text-slate-100 font-mono uppercase focus:outline-none focus:border-emerald-500">
+              </div>
+            </div>
+          </div>
+
+          <!-- Color 4: Botón Escanea QR (Fondo) -->
+          <div class="bg-slate-900/40 p-3.5 rounded-xl border border-slate-800 space-y-2">
+            <label class="block text-xs text-slate-300 font-medium">4. Fondo Botón Escaneo</label>
+            <div class="flex items-center gap-2">
+              <input type="color" id="picker-bg-scan" value="#334155" class="w-9 h-9 p-0 rounded-lg border border-slate-700 bg-transparent cursor-pointer">
+              <div class="flex-1 relative">
+                <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 text-xs font-mono">#</span>
+                <input type="text" id="hex-bg-scan" value="334155" class="w-full bg-slate-950 border border-slate-700 rounded-lg pl-6 pr-2.5 py-1.5 text-xs text-slate-100 font-mono uppercase focus:outline-none focus:border-emerald-500">
+              </div>
+            </div>
+          </div>
+
+          <!-- Color 5: Botón Escanea QR (Texto) -->
+          <div class="bg-slate-900/40 p-3.5 rounded-xl border border-slate-800 space-y-2">
+            <label class="block text-xs text-slate-300 font-medium">5. Texto Botón Escaneo</label>
+            <div class="flex items-center gap-2">
+              <input type="color" id="picker-text-scan" value="#ffffff" class="w-9 h-9 p-0 rounded-lg border border-slate-700 bg-transparent cursor-pointer">
+              <div class="flex-1 relative">
+                <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 text-xs font-mono">#</span>
+                <input type="text" id="hex-text-scan" value="FFFFFF" class="w-full bg-slate-950 border border-slate-700 rounded-lg pl-6 pr-2.5 py-1.5 text-xs text-slate-100 font-mono uppercase focus:outline-none focus:border-emerald-500">
+              </div>
+            </div>
+          </div>
+
+          <!-- Color 6: Detalles Estéticos / Bordes -->
+          <div class="bg-slate-900/40 p-3.5 rounded-xl border border-slate-800 space-y-2">
+            <label class="block text-xs text-slate-300 font-medium">6. Bordes y Decoraciones</label>
+            <div class="flex items-center gap-2">
+              <input type="color" id="picker-decorations" value="#0f172a" class="w-9 h-9 p-0 rounded-lg border border-slate-700 bg-transparent cursor-pointer">
+              <div class="flex-1 relative">
+                <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-slate-500 text-xs font-mono">#</span>
+                <input type="text" id="hex-decorations" value="0F172A" class="w-full bg-slate-950 border border-slate-700 rounded-lg pl-6 pr-2.5 py-1.5 text-xs text-slate-100 font-mono uppercase focus:outline-none focus:border-emerald-500">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paletas Predeterminadas de Acceso Rápido -->
+        <div class="pt-2">
+          <label class="block text-xs text-slate-400 font-medium mb-2">Paletas de sugerencia rápidas:</label>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="applyPreset('#FFFFFF', '#1E8708', '#FFFFFF', '#1E8708', '#FFFFFF', '#0F172A')" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#1E8708]"></span> Verde Corporativo
+            </button>
+            <button onclick="applyPreset('#111827', '#1F2937', '#F9FAFB', '#3B82F6', '#FFFFFF', '#3B82F6')" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#3B82F6]"></span> Tecnológico Oscuro
+            </button>
+            <button onclick="applyPreset('#FFFBEB', '#78350F', '#FEF3C7', '#92400E', '#FEF3C7', '#451A03')" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#78350F]"></span> Vintage / Madera
+            </button>
+            <button onclick="applyPreset('#FFFFFF', '#000000', '#FFFFFF', '#000000', '#FFFFFF', '#1E293B')" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition">
+              <span class="w-2.5 h-2.5 rounded-full bg-black"></span> Elegante Monocromático
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECCIÓN: Tipografías y Dimensiones -->
+      <div class="space-y-4 pt-2 border-t border-slate-800">
+        <h3 class="text-sm font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+          <i class="fa-solid fa-font text-emerald-500"></i> Tipografías y Escala
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Selector de Fuente -->
+          <div>
+            <label class="block text-xs text-slate-400 font-medium mb-1.5">Familia Tipográfica</label>
+            <select id="select-font" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition">
+              <option value="font-montserrat">Montserrat</option>
+              <option value="font-poppins">Poppins</option>
+              <option value="font-space">Space Grotesk</option>
+              <option value="font-playfair">Playfair Display (Serif)</option>
+              <option value="font-inter" selected>Inter</option>
+              <option value="font-outfit">Outfit</option>
+            </select>
+          </div>
+
+          <!-- Ajuste de Escala del Logo -->
+          <div>
+            <label class="block text-xs text-slate-400 font-medium mb-1.5">Tamaño de la Foto de Perfil</label>
+            <div class="flex items-center gap-3">
+              <input type="range" id="slider-logo-size" min="80" max="160" value="120" class="flex-1 accent-emerald-500">
+              <span id="label-logo-size" class="text-xs text-slate-300 font-mono w-10">120px</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ajustes Finos de Tamaños de Letra -->
+        <div class="bg-slate-900/40 p-4 rounded-xl border border-slate-800 space-y-3">
+          <h4 class="text-xs font-semibold text-slate-400">Tamaños de Texto Relativos:</h4>
+          
+          <div class="space-y-2.5">
+            <div>
+              <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                <span>Título del Cliente</span>
+                <span id="label-size-title" class="font-mono">24px</span>
+              </div>
+              <input type="range" id="slider-size-title" min="16" max="36" value="24" class="w-full accent-emerald-500 h-1 bg-slate-700 rounded-lg appearance-none">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                <span>Etiqueta "Tarjeta Digital"</span>
+                <span id="label-size-tag" class="font-mono">14px</span>
+              </div>
+              <input type="range" id="slider-size-tag" min="10" max="22" value="14" class="w-full accent-emerald-500 h-1 bg-slate-700 rounded-lg appearance-none">
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[11px] text-slate-400 mb-1">
+                <span>Botón "Escanea" y URL inferior</span>
+                <span id="label-size-button" class="font-mono">14px</span>
+              </div>
+              <input type="range" id="slider-size-button" min="11" max="20" value="14" class="w-full accent-emerald-500 h-1 bg-slate-700 rounded-lg appearance-none">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- COLUMNA DERECHA: VISTA PREVIA Y ACCIONES (5 Columnas en pantallas grandes) -->
+    <section class="lg:col-span-5 flex flex-col items-center gap-6 lg:sticky lg:top-24">
+      
+      <!-- Contenedor del Título de Vista Previa -->
+      <div class="w-full text-center lg:text-left flex items-center justify-between">
+        <h2 class="text-lg font-bold text-slate-200">Vista Previa Interactiva</h2>
+        <span class="text-xs text-slate-400">Canvas Escala 1:1</span>
+      </div>
+
+      <!-- LIENZO DE LA TARJETA (ELEMENTO A DESCARGAR) -->
+      <div id="capture-area" class="w-[360px] h-[720px] rounded-[40px] relative overflow-hidden transition-shadow duration-300 flex flex-col justify-between p-7 select-none border border-black/10" style="background-color: #ffffff; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);">
+        
+        <!-- DECORACIÓN FONDO SUPERIOR (Líneas dinámicas) -->
+        <div id="decor-curves" class="absolute top-0 left-0 w-full h-[180px] pointer-events-none overflow-hidden z-0">
+          <svg viewBox="0 0 500 200" preserveAspectRatio="none" class="w-full h-full">
+            <path d="M0,0 C150,140 350,20 500,80 L500,0 L0,0 Z" id="svg-curve-path" fill="#0f172a" fill-opacity="0.15"></path>
+          </svg>
+        </div>
+
+        <!-- 1. BLOQUE SUPERIOR: LOGO / FOTO DE PERFIL (Centrado y Limpio) -->
+        <div class="w-full flex justify-center pt-4 z-10">
+          <div id="card-logo-container" class="relative rounded-full p-1 bg-white shadow-md transition-all duration-300" style="width: 120px; height: 120px; border: 4px solid #0f172a;">
+            <img id="card-logo-img" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=300&auto=format&fit=crop&q=80" alt="Logo Cliente" class="w-full h-full object-cover rounded-full">
+            <!-- Marcador en caso de carga fallida -->
+            <div id="card-logo-fallback" class="hidden w-full h-full bg-slate-800 rounded-full flex items-center justify-center text-slate-400">
+              <i class="fa-solid fa-user-tie text-3xl"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. RECUADRO DE DATOS DEL CLIENTE (Con Cargo / Eslogan en la parte inferior) -->
+        <div id="card-info-box" class="rounded-3xl p-5 z-10 transition-colors duration-200" style="background-color: #334155;">
+          <div id="card-tag" class="uppercase tracking-widest font-bold opacity-80 mb-1" style="color: #ffffff; font-size: 14px;">
+            Tarjeta Digital
+          </div>
+          <h3 id="card-title" class="font-bold leading-tight" style="color: #ffffff; font-size: 24px;">
+            El Cirujano Barbería
+          </h3>
+          <div id="card-role" class="italic opacity-90 mt-1 font-light leading-snug" style="color: #ffffff; font-size: 14px;">
+            Estilo, Precisión y Tendencia
+          </div>
+        </div>
+
+        <!-- 3. SECCIÓN CÓDIGO QR -->
+        <div class="flex-1 flex items-center justify-center py-2 z-10">
+          <div class="bg-white p-4 rounded-3xl shadow-lg border border-slate-100 flex items-center justify-center">
+            <!-- Aquí el script genera el QR -->
+            <div id="qrcode" class="p-1"></div>
+          </div>
+        </div>
+
+        <!-- 4. BOTÓN "ESCANEA CÓDIGO QR" (Colores customizables) -->
+        <div class="w-full px-4 mb-2 z-10">
+          <div id="card-scan-btn" class="w-full py-3 rounded-2xl flex items-center justify-center gap-2.5 font-semibold transition-all duration-200" style="background-color: #334155; color: #ffffff; font-size: 14px;">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            <span id="card-scan-text">Escanea Código QR</span>
+          </div>
+        </div>
+
+        <!-- 5. PIE DE PÁGINA (Con el link y logo curvo inferior) -->
+        <div class="w-full z-10 mt-1">
+          <!-- Borde curvo inferior del mockup -->
+          <div class="w-full flex justify-center items-end">
+            <div class="bg-slate-900 text-white rounded-t-2xl px-6 py-1.5 flex items-center gap-2 text-xs border-t border-x border-slate-800 shadow-md">
+              <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+              <span id="card-footer-url" class="font-mono text-[11px] tracking-tight text-slate-300">tarjetalink.github.io/web/</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BOTONES DE ACCIÓN PRINCIPALES -->
+      <div class="w-[360px] flex flex-col gap-3">
+        <button id="btn-download" class="w-full bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-slate-950 font-bold py-3.5 px-6 rounded-2xl flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition duration-200">
+          <i class="fa-solid fa-download text-lg"></i>
+          Descargar Imagen PNG Alta Calidad
+        </button>
+        <p class="text-center text-xs text-slate-400">La descarga genera un archivo de imagen .png listo para enviar o imprimir.</p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer general -->
+  <footer class="bg-slate-950 border-t border-slate-800 text-slate-500 text-xs text-center py-6 mt-12">
+    <p>© 2026 Generador de Tarjeta Digital — Ajustado con entrada manual de colores HEX de marca.</p>
+  </footer>
+
+  <!-- LÓGICA DE PROGRAMACIÓN (JS) -->
+  <script>
+    // Variables de Estado de la Tarjeta
+    let qrGenerator = null;
+
+    // Elementos del DOM (Inputs / Controles)
+    const inputTag = document.getElementById('input-tag');
+    const inputTitle = document.getElementById('input-title');
+    const inputRole = document.getElementById('input-role');
+    const inputScanText = document.getElementById('input-scan-text');
+    const inputFooterText = document.getElementById('input-footer-text');
+    const inputLogoUrl = document.getElementById('input-logo-url');
+    const inputLogoFile = document.getElementById('input-logo-file');
+    const fileNameText = document.getElementById('file-name-text');
+    const inputQrLink = document.getElementById('input-qr-link');
+    const selectFont = document.getElementById('select-font');
+    
+    // Sliders
+    const sliderLogoSize = document.getElementById('slider-logo-size');
+    const labelLogoSize = document.getElementById('label-logo-size');
+    
+    const sliderSizeTitle = document.getElementById('slider-size-title');
+    const labelSizeTitle = document.getElementById('label-size-title');
+    
+    const sliderSizeTag = document.getElementById('slider-size-tag');
+    const labelSizeTag = document.getElementById('label-size-tag');
+    
+    const sliderSizeButton = document.getElementById('slider-size-button');
+    const labelSizeButton = document.getElementById('label-size-button');
+
+    // Elementos de Vista Previa de la Tarjeta
+    const captureArea = document.getElementById('capture-area');
+    const cardLogoContainer = document.getElementById('card-logo-container');
+    const cardLogoImg = document.getElementById('card-logo-img');
+    const cardLogoFallback = document.getElementById('card-logo-fallback');
+    
+    const cardInfoBox = document.getElementById('card-info-box');
+    const cardTag = document.getElementById('card-tag');
+    const cardTitle = document.getElementById('card-title');
+    const cardRole = document.getElementById('card-role');
+    const cardScanBtn = document.getElementById('card-scan-btn');
+    const cardScanText = document.getElementById('card-scan-text');
+    const cardFooterUrl = document.getElementById('card-footer-url');
+    const svgCurvePath = document.getElementById('svg-curve-path');
+
+    // Elementos del Selector de Color (Paleta + Inputs Hex)
+    const colorControls = [
+      { picker: 'picker-bg-card', hex: 'hex-bg-card', update: (color) => { captureArea.style.backgroundColor = color; } },
+      { picker: 'picker-bg-info', hex: 'hex-bg-info', update: (color) => { cardInfoBox.style.backgroundColor = color; } },
+      { picker: 'picker-text-info', hex: 'hex-text-info', update: (color) => { 
+          cardTag.style.color = color; 
+          cardTitle.style.color = color; 
+          cardRole.style.color = color; 
+        } 
+      },
+      { picker: 'picker-bg-scan', hex: 'hex-bg-scan', update: (color) => { cardScanBtn.style.backgroundColor = color; } },
+      { picker: 'picker-text-scan', hex: 'hex-text-scan', update: (color) => { cardScanBtn.style.color = color; } },
+      { picker: 'picker-decorations', hex: 'hex-decorations', update: (color) => { 
+          cardLogoContainer.style.borderColor = color; 
+          svgCurvePath.setAttribute('fill', color);
+        } 
+      }
+    ];
+
+    // Inicialización del generador QR con dimensiones aumentadas a 175px
+    function initQR() {
+      const qrContainer = document.getElementById('qrcode');
+      qrContainer.innerHTML = ''; // Limpiar
+      qrGenerator = new QRCode(qrContainer, {
+        text: inputQrLink.value,
+        width: 175, // QR optimizado a un tamaño de 175px para una lectura perfecta
+        height: 175,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
+    // Actualiza QR dinámicamente al escribir
+    inputQrLink.addEventListener('input', () => {
+      const destination = inputQrLink.value.trim() || "https://tarjetalink.github.io/web/";
+      qrGenerator.clear();
+      qrGenerator.makeCode(destination);
+    });
+
+    // Enlazar eventos de texto a la tarjeta
+    inputTag.addEventListener('input', () => { cardTag.textContent = inputTag.value; });
+    inputTitle.addEventListener('input', () => { cardTitle.textContent = inputTitle.value; });
+    inputRole.addEventListener('input', () => { cardRole.textContent = inputRole.value; });
+    inputScanText.addEventListener('input', () => { cardScanText.textContent = inputScanText.value; });
+    inputFooterText.addEventListener('input', () => { cardFooterUrl.textContent = inputFooterText.value; });
+
+    // Carga de Logo desde URL
+    inputLogoUrl.addEventListener('input', () => {
+      const url = inputLogoUrl.value.trim();
+      if (url) {
+        cardLogoImg.src = url;
+        cardLogoImg.classList.remove('hidden');
+        cardLogoFallback.classList.add('hidden');
+      }
+    });
+
+    // Carga de Logo localmente desde archivo
+    inputLogoFile.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        fileNameText.textContent = file.name;
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          cardLogoImg.src = event.target.result;
+          cardLogoImg.classList.remove('hidden');
+          cardLogoFallback.classList.add('hidden');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Error al cargar imagen (Activar fallback)
+    cardLogoImg.onerror = function() {
+      cardLogoImg.classList.add('hidden');
+      cardLogoFallback.classList.remove('hidden');
+    };
+
+    // Control de Tipografía
+    selectFont.addEventListener('change', () => {
+      const selectedClass = selectFont.value;
+      // Remover clases anteriores
+      captureArea.className = captureArea.className.replace(/font-\w+/g, '');
+      captureArea.classList.add(selectedClass);
+    });
+
+    // Control del tamaño de la foto de perfil
+    sliderLogoSize.addEventListener('input', () => {
+      const size = sliderLogoSize.value;
+      labelLogoSize.textContent = `${size}px`;
+      cardLogoContainer.style.width = `${size}px`;
+      cardLogoContainer.style.height = `${size}px`;
+    });
+
+    // Control fino del tamaño del título de cliente y escalado proporcional del cargo
+    sliderSizeTitle.addEventListener('input', () => {
+      const size = parseInt(sliderSizeTitle.value);
+      labelSizeTitle.textContent = `${size}px`;
+      cardTitle.style.fontSize = `${size}px`;
+      
+      // Escala dinámicamente el Cargo o Subtítulo para que siempre quepa estéticamente
+      const scaledRoleSize = Math.max(11, Math.round(size * 0.58));
+      cardRole.style.fontSize = `${scaledRoleSize}px`;
+    });
+
+    // Control fino del tamaño de la etiqueta superior
+    sliderSizeTag.addEventListener('input', () => {
+      const size = sliderSizeTag.value;
+      labelSizeTag.textContent = `${size}px`;
+      cardTag.style.fontSize = `${size}px`;
+    });
+
+    // Control fino del botón y el pie de página
+    sliderSizeButton.addEventListener('input', () => {
+      const size = sliderSizeButton.value;
+      labelSizeButton.textContent = `${size}px`;
+      cardScanBtn.style.fontSize = `${size}px`;
+    });
+
+    // Seteo y vinculación de controles de color bidireccionales + pegado HEX
+    colorControls.forEach(control => {
+      const pickerEl = document.getElementById(control.picker);
+      const hexEl = document.getElementById(control.hex);
+
+      // Sincronizar desde Selector de Color visual (Picker) hacia Input Hexagonal y Tarjeta
+      pickerEl.addEventListener('input', (e) => {
+        const color = e.target.value;
+        hexEl.value = color.replace('#', '').toUpperCase();
+        control.update(color);
+      });
+
+      // Permitir pegar e introducir códigos directamente en la caja de texto hexadecimal
+      hexEl.addEventListener('input', (e) => {
+        let value = e.target.value.trim();
+        
+        // Si pegan con un hashtag al inicio, lo removemos para el formateo interno
+        if (value.startsWith('#')) {
+          value = value.substring(1);
+        }
+
+        // Permitir solo letras y números válidos para colores hex
+        value = value.replace(/[^a-fA-F0-9]/g, '');
+        hexEl.value = value.toUpperCase();
+
+        // Validamos longitud óptima (3 o 6 dígitos de color hexadecimal)
+        if (value.length === 3 || value.length === 6) {
+          const processedColor = `#${value}`;
+          pickerEl.value = processedColor.length === 4 ? expandHexShortcut(processedColor) : processedColor;
+          control.update(pickerEl.value);
+        }
+      });
+
+      // Al perder el foco, asegurar que siempre tenga la estructura ideal de 6 caracteres
+      hexEl.addEventListener('blur', () => {
+        let value = hexEl.value;
+        if (value.length === 3) {
+          value = value.split('').map(char => char + char).join('');
+        }
+        while (value.length < 6) {
+          value += '0';
+        }
+        hexEl.value = value.substring(0, 6).toUpperCase();
+        pickerEl.value = `#${hexEl.value}`;
+        control.update(pickerEl.value);
+      });
+    });
+
+    // Función auxiliar para expandir formato corto (ej: #FFF -> #FFFFFF)
+    function expandHexShortcut(hex) {
+      if (hex.length === 4) {
+        return '#' + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
+      }
+      return hex;
+    }
+
+    // Aplicar Presets de colores de forma inmediata
+    function applyPreset(bgCard, bgInfo, textInfo, bgScan, textScan, decorations) {
+      document.getElementById('picker-bg-card').value = bgCard;
+      document.getElementById('hex-bg-card').value = bgCard.replace('#', '').toUpperCase();
+      captureArea.style.backgroundColor = bgCard;
+
+      document.getElementById('picker-bg-info').value = bgInfo;
+      document.getElementById('hex-bg-info').value = bgInfo.replace('#', '').toUpperCase();
+      cardInfoBox.style.backgroundColor = bgInfo;
+
+      document.getElementById('picker-text-info').value = textInfo;
+      document.getElementById('hex-text-info').value = textInfo.replace('#', '').toUpperCase();
+      cardTag.style.color = textInfo;
+      cardTitle.style.color = textInfo;
+      cardRole.style.color = textInfo;
+
+      document.getElementById('picker-bg-scan').value = bgScan;
+      document.getElementById('hex-bg-scan').value = bgScan.replace('#', '').toUpperCase();
+      cardScanBtn.style.backgroundColor = bgScan;
+
+      document.getElementById('picker-text-scan').value = textScan;
+      document.getElementById('hex-text-scan').value = textScan.replace('#', '').toUpperCase();
+      cardScanBtn.style.color = textScan;
+
+      document.getElementById('picker-decorations').value = decorations;
+      document.getElementById('hex-decorations').value = decorations.replace('#', '').toUpperCase();
+      cardLogoContainer.style.borderColor = decorations;
+      svgCurvePath.setAttribute('fill', decorations);
+    }
+
+    // Descarga de la Tarjeta como Imagen PNG usando html2canvas
+    document.getElementById('btn-download').addEventListener('click', () => {
+      const btn = document.getElementById('btn-download');
+      const originalText = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Generando Archivo...';
+
+      // Esperar un momento corto para renderizado óptimo del canvas
+      setTimeout(() => {
+        html2canvas(captureArea, {
+          scale: 2, // Doble resolución para máxima nitidez de impresión/dispositivos
+          useCORS: true, // Permitir carga de logos de dominios externos
+          backgroundColor: null, // Soporta canal alfa si fuese necesario
+          logging: false
+        }).then(canvas => {
+          const link = document.createElement('a');
+          const clientNameNormalized = inputTitle.value.toLowerCase().replace(/[^a-z0-9]/g, '_');
+          link.download = `tarjeta_digital_${clientNameNormalized}.png`;
+          link.href = canvas.toDataURL('image/png');
+          link.click();
+          
+          btn.disabled = false;
+          btn.innerHTML = originalText;
+        }).catch(err => {
+          console.error("Error al procesar la captura:", err);
+          btn.disabled = false;
+          btn.innerHTML = originalText;
+        });
+      }, 500);
+    });
+
+    // Arrancar la aplicación e iniciar QR
+    window.onload = function() {
+      initQR();
+      // Aplicar tipografía por defecto en el arranque
+      captureArea.classList.add(selectFont.value);
+    };
+  </script>
+</body>
+</html>
