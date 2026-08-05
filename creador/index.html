@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,11 +16,10 @@
 
   <!-- QR Code Generator Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <!-- html-to-image: exportación compatible con colores oklch() de Tailwind v4 (renderiza vía SVG foreignObject, no reimplementa el parser de CSS como html2canvas) -->
+  <!-- html-to-image: exportación compatible con colores oklch() de Tailwind v4 (renderiza vía SVG foreignObject) -->
   <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
 
   <style>
-    /* Estilos base de fuentes aplicados dinámicamente */
     .font-montserrat { font-family: 'Montserrat', sans-serif; }
     .font-poppins { font-family: 'Poppins', sans-serif; }
     .font-space { font-family: 'Space Grotesk', sans-serif; }
@@ -357,7 +355,7 @@
       </div>
 
       <!-- LIENZO 1: TARJETA DIGITAL (ELEMENTO A DESCARGAR) -->
-      <div id="capture-area" class="w-[360px] h-[720px] mx-auto rounded-[40px] relative overflow-hidden transition-shadow duration-300 flex flex-col justify-between p-7 select-none border border-black/10" style="background-color: #ffffff; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);">
+      <div id="capture-area" class="w-[360px] h-[720px] mx-auto rounded-[40px] relative overflow-hidden transition-shadow duration-300 flex flex-col justify-between p-7 select-none border border-black/10 box-border shrink-0" style="background-color: #ffffff; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); min-width: 360px; max-width: 360px;">
 
         <!-- DECORACIÓN FONDO SUPERIOR -->
         <div id="decor-curves" class="absolute top-0 left-0 w-full h-[180px] pointer-events-none overflow-hidden z-0">
@@ -417,7 +415,7 @@
       </div>
 
       <!-- LIENZO 2: PANEL DE MOSTRADOR (15 x 21 cm) — oculto por defecto -->
-      <div id="capture-area-poster" class="w-[567px] h-[794px] mx-auto rounded-[28px] relative overflow-hidden transition-shadow duration-300 flex flex-col p-12 select-none border border-black/10" style="display:none; background-color: #ffffff; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);">
+      <div id="capture-area-poster" class="w-[567px] h-[794px] mx-auto rounded-[28px] relative overflow-hidden transition-shadow duration-300 flex flex-col p-12 select-none border border-black/10 box-border shrink-0" style="display:none; background-color: #ffffff; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); min-width: 567px; max-width: 567px;">
 
         <!-- DECORACIÓN FONDO SUPERIOR -->
         <div class="absolute top-0 left-0 w-full h-[240px] pointer-events-none overflow-hidden z-0">
@@ -857,8 +855,7 @@
     btnFormatCard.addEventListener('click', () => setFormat('card'));
     btnFormatPoster.addEventListener('click', () => setFormat('poster'));
 
-    // Descarga como Imagen PNG usando html-to-image — respeta el formato activo
-    // (reemplaza a html2canvas, que no soporta los colores oklch() de Tailwind v4)
+    // Descarga como Imagen PNG usando html-to-image — respeta el formato activo y dimensiones reales completas
     btnDownload.addEventListener('click', () => {
       const btn = btnDownload;
       const originalText = btnDownloadText.textContent;
@@ -866,15 +863,27 @@
       btnDownloadText.textContent = 'Generando Archivo...';
 
       const targetEl = currentFormat === 'card' ? captureArea : captureAreaPoster;
-      const pixelRatio = currentFormat === 'card' ? 2 : 3.5; // Mayor escala en mostrador para calidad de impresión
+      const pixelRatio = currentFormat === 'card' ? 2 : 3.5;
       const filePrefix = currentFormat === 'card' ? 'tarjeta_digital_' : 'panel_mostrador_';
+
+      // Asegurar dimensiones reales completas del contenedor en la captura
+      const exactWidth = targetEl.scrollWidth;
+      const exactHeight = targetEl.scrollHeight;
 
       setTimeout(() => {
         htmlToImage.toPng(targetEl, {
+          width: exactWidth,
+          height: exactHeight,
           pixelRatio: pixelRatio,
           cacheBust: true,
           backgroundColor: null,
           skipFonts: false,
+          style: {
+            transform: 'none',
+            margin: '0',
+            left: '0',
+            top: '0'
+          },
           fetchRequestInit: { mode: 'cors', cache: 'no-cache' }
         }).then(dataUrl => {
           const link = document.createElement('a');
@@ -900,7 +909,6 @@
       initQR();
       captureArea.classList.add(selectFont.value);
       captureAreaPoster.classList.add(selectFont.value);
-      // Sincroniza el tamaño inicial del nombre del cliente en el mostrador con el multiplicador vigente
       posterTitle.style.fontSize = `${Math.round(parseInt(sliderSizeTitle.value) * POSTER_TITLE_SCALE)}px`;
       setFormat('card');
     };
