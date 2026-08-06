@@ -855,7 +855,7 @@
     btnFormatCard.addEventListener('click', () => setFormat('card'));
     btnFormatPoster.addEventListener('click', () => setFormat('poster'));
 
-    // Descarga como Imagen PNG usando html-to-image — respeta el formato activo y dimensiones reales completas
+    // Descarga y compatibilidad móvil mediante html-to-image y Web Share API / DataURL fallback
     btnDownload.addEventListener('click', () => {
       const btn = btnDownload;
       const originalText = btnDownloadText.textContent;
@@ -885,12 +885,73 @@
             top: '0'
           },
           fetchRequestInit: { mode: 'cors', cache: 'no-cache' }
-        }).then(dataUrl => {
-          const link = document.createElement('a');
+        }).then(async dataUrl => {
           const clientNameNormalized = inputTitle.value.toLowerCase().replace(/[^a-z0-9]/g, '_');
-          link.download = `${filePrefix}${clientNameNormalized}.png`;
-          link.href = dataUrl;
-          link.click();
+          const fileName = `${filePrefix}${clientNameNormalized}.png`;
+
+          // Detección segura de dispositivo móvil
+          const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+          if (isMobile) {
+            try {
+              // Convertir DataURL a Blob y luego a File
+              const res = await fetch(dataUrl);
+              const blob = await res.blob();
+              const file = new File([blob], fileName, { type: 'image/png' });
+
+              if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                  files: [file],
+                  title: 'Tarjeta Digital',
+                  text: 'Aquí tienes tu imagen generada.'
+                });
+                btn.disabled = false;
+                btnDownloadText.textContent = originalText;
+                return;
+              }
+            } catch (shareErr) {
+              if (shareErr.name !== 'AbortError') {
+                console.warn("Web Share API falló o fue cancelada, abriendo imagen...", shareErr);
+              } else {
+                btn.disabled = false;
+                btnDownloadText.textContent = originalText;
+                return;
+              }
+            }
+
+            // Fallback móvil: abrir en nueva pestaña para mantener presionado y guardar
+            const newTab = window.open();
+            if (newTab) {
+              newTab.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Guardar Imagen</title>
+                  <style>
+                    body { margin: 0; background: #0f172a; color: #fff; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; text-align: center; }
+                    img { max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); margin-bottom: 20px; }
+                    p { font-size: 14px; color: #94a3b8; }
+                  </style>
+                </head>
+                <body>
+                  <img src="${dataUrl}" alt="Imagen Generada">
+                  <p>Mantén presionada la imagen para seleccionarla y guardarla en tu dispositivo.</p>
+                </body>
+                </html>
+              `);
+              newTab.document.close();
+            } else {
+              window.location.href = dataUrl;
+            }
+          } else {
+            // Comportamiento para computador (PC/Mac)
+            const link = document.createElement('a');
+            link.download = fileName;
+            link.href = dataUrl;
+            link.click();
+          }
 
           btn.disabled = false;
           btnDownloadText.textContent = originalText;
